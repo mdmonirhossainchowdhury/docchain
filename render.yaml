@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: docchain-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://docchain-web.onrender.com
+
+  - type: web
+    name: docchain-web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://docchain-api.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

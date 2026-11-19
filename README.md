@@ -42,6 +42,12 @@ npm run dev          # http://localhost:5173  (proxies /api to :8000)
 
 Open http://localhost:5173, create a patient account, then a doctor account in a private window to try the sharing flow.
 
+### Render demo deployment
+
+The root `render.yaml` defines a free API web service and static frontend. Connect this repository to Render as a Blueprint and deploy both services. The frontend is served at `https://docchain-web.onrender.com`; the API is served at `https://docchain-api.onrender.com`.
+
+This free demo uses ephemeral backend storage: its database and uploaded files are lost when the service restarts, spins down, or redeploys. Use synthetic test data only. Do not upload real patient records; production use requires persistent storage, encryption at rest, backups, and appropriate privacy and regulatory review.
+
 ### Quick demo script (2 minutes)
 1. Register as **patient** → Profile: add allergies/conditions.
 2. Records: upload a lab report → open Preview to see the AI reading → click **+ Care Loop** on a suggested follow-up.
